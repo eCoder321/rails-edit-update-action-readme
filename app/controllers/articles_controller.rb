@@ -20,4 +20,19 @@ class ArticlesController < ApplicationController
   end
 
   # add edit and update methods here
+  def edit
+    @article = Article.find(params[:id])
+    render :new
+  end
+
+  def update
+    #raise params.inspect
+    @article = Article.find_by(id: params[:id])
+    updated = @article.update(title: params[:article][:title], description: params[:article][:description])
+    if updated
+      redirect_to @article
+    else
+      raise params.inspect
+    end
+  end
 end
